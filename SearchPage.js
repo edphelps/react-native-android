@@ -52,7 +52,6 @@ export default class SearchPage extends Component<Props> {
   }
 
   _executeQuery = (query) => {
-    console.log(query);
     this.setState({
       ...this.state,
       isLoading: true
@@ -82,7 +81,6 @@ export default class SearchPage extends Component<Props> {
       })
     }
   }
-
   _onSearchPressed = () => {
     const query = urlForQueryAndPage('place_name', this.state.searchString, 1);
     this._executeQuery(query);
