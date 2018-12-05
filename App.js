@@ -7,12 +7,12 @@
  */
 'use strict'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
-import SearchPage from './SearchPage';
+import SearchPage from './SearchPage'
+import SearchResults from './SearchResults'
 type Props = {};
 
 const App = createStackNavigator({
-  Home: {
-    screen: SearchPage
-    }
+  Home: { screen: SearchPage },
+  Results: { screen: SearchResults },
 })
 export default createAppContainer(App)

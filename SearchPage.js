@@ -30,7 +30,7 @@ function urlForQueryAndPage(key, value, pageNumber) {
 
     return 'https://api.nestoria.co.uk/api?' + querystring;
   }
-  
+
 export default class SearchPage extends Component<Props> {
   static navigationOptions = {
     title: 'Property Finder',
@@ -40,6 +40,7 @@ export default class SearchPage extends Component<Props> {
     this.state = {
       searchString: 'london',
       isLoading: false,
+      message: '',
     }
   }
 
@@ -56,6 +57,30 @@ export default class SearchPage extends Component<Props> {
       ...this.state,
       isLoading: true
     })
+    fetch(query)
+    .then(response => response.json())
+    .then(json => this._handleResponse(json.response))
+    .catch(error =>
+       this.setState({
+        isLoading: false,
+        message: 'Something bad happened ' + error
+    })
+   )
+  }
+
+  _handleResponse = (response) => {
+    this.setState({
+      isLoading: false ,
+      message: ''
+    })
+    if (response.application_response_code.substr(0, 1) === '1') {
+      this.props.navigation.navigate(
+      'Results', {listings: response.listings})
+    } else {
+      this.setState({
+        message: 'Location not recognized; please try again.'
+      })
+    }
   }
 
   _onSearchPressed = () => {
@@ -69,7 +94,7 @@ export default class SearchPage extends Component<Props> {
     return (
       <View style={styles.container}>
         <Text style={styles.description}>
-          Search for houses to buy!!
+          Search for houses to buy!!!
         </Text>
         <Text style={styles.description}>
           Search by place-name or postcode.
@@ -89,6 +114,7 @@ export default class SearchPage extends Component<Props> {
         </View>
         <Image source={require('./Resources/house.png')} style={styles.image}/>
         {spinner}
+        <Text style={styles.description}>{this.state.message}</Text>
       </View>
     )
   }
