@@ -10,7 +10,6 @@ import { createStackNavigator, createAppContainer } from 'react-navigation'
 import SearchPage from './SearchPage';
 type Props = {};
 
-
 const App = createStackNavigator({
   Home: {
     screen: SearchPage
