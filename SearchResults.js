@@ -37,7 +37,6 @@ class ListItem extends React.PureComponent {
     );
   }
 }
-
 type Props = {};
 export default class SearchResults extends Component<Props> {
   static navigationOptions = {
