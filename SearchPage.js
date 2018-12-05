@@ -15,9 +15,25 @@ type Props = {};
 export default class SearchPage extends Component<Props> {
   static navigationOptions = {
     title: 'Property Finder',
+  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchString: 'london'
+    };
+  }
+
+  _onSearchTextChanged = (event) => {
+    console.log('_onSearchTextChanged');
+    this.setState({
+      ...this.state,
+      searchString: event.nativeEvent.text
+    })
+    console.log('Current: '+this.state.searchString+', Next: '+event.nativeEvent.text);
   };
 
   render() {
+    console.log('SearchPage.render')
     return (
       <View style={styles.container}>
         <Text style={styles.description}>
@@ -27,10 +43,12 @@ export default class SearchPage extends Component<Props> {
           Search by place-name or postcode.
         </Text>
         <View style={styles.flowRight}>
-          <TextInput
-            underlineColorAndroid={'transparent'}
-            style={styles.searchInput}
-            placeholder='Search via name or postcode'/>
+        <TextInput
+          underlineColorAndroid={'transparent'}
+          style={styles.searchInput}
+          value={this.state.searchString}
+          onChange={this._onSearchTextChanged}
+          placeholder='Search via name or postcode'/>
           <Button
             onPress={() => {}}
             color='#48BBEC'
@@ -71,4 +89,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     color: '#48BBEC',
   },
-});
+  image: {
+    width: 217,
+    height: 138,
+  },
+})
